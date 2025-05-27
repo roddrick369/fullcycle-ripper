@@ -5,20 +5,19 @@ def login(username: str, password: str) -> str:
     
     url = "https://portal.fullcycle.com.br/api/login_check"
 
-    boundary = "----WebKitFormBoundaryxZqud18BCKBITb7K"
     headers = {
-        "Content-Type": f"multipart/form-data; boundary={boundary}",
-        "Origin": "https://plataforma.fullcycle.com.br",
-        "Referer": "https://plataforma.fullcycle.com.br/",
+    
     }
 
-    body = (
-        f"{boundary}\r\nContent-Disposition: form-data; name=\"_username\"\r\n\r\n{username}\r\n"
-        f"{boundary}\r\nContent-Disposition: form-data; name=\"_password\"\r\n\r\n{password}\r\n"
-        f"{boundary}--\r\n"
-    )
+    data = {
+        "_username": (None, username),
+        "_password": (None, password),
+    }
 
-    res = post(url, headers=headers, data=body.encode('utf-8'))
+    res = post(url, headers=headers, data=data)  # type: ignore
+
+    if 'token' not in res: # type: ignore
+        raise Exception("Login failed, no token received.")
     set_auth_token(res['token']) # type: ignore
     return res['token'] # type: ignore
 

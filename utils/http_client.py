@@ -27,7 +27,7 @@ def post(url: str, headers: dict | None = None, data=None, json_data=None) -> di
     """Send a POST request to the specified URL with optional headers and data."""
     
     merged_headers = _merge_headers(headers) # type: ignore
-    res = session.post(url, headers=merged_headers, data=data, json=json_data)
+    res = session.post(url, headers=merged_headers, data=data, json=json_data,)
     
     _check_response(res)
     return res.json()
