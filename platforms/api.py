@@ -9,7 +9,7 @@ with open(endpoints_path, 'r') as file:
     data = json.load(file)
 
 def get_courses() -> list: # type: ignore
-    url = "https://portal.fullcycle.com.br/api/cursos/my.json"
+    url = data["courses"]
     return get(url)  # type: ignore
 
 def get_learning_paths(course_id: int, classroom_id: int) -> dict:
@@ -18,7 +18,16 @@ def get_learning_paths(course_id: int, classroom_id: int) -> dict:
         "classroom_id": classroom_id
     }
 
-    parsed_data = {key: Template(value).substitute(values) for key, value in data.items()}
-    
-    url = parsed_data["fc4"] if course_id == 215 else parsed_data["standard"]
+    parsed_data = {key: Template(value).substitute(values) for key, value in data["learning_paths"].items()}  
+    url = parsed_data["fc4"] if course_id == 215 else parsed_data["standard"] # type: ignore
     return get(url)  # type: ignore
+
+def get_catalog(catalog_id: int, classroom_id: int) -> dict:
+    values = {
+        "classroom_id": classroom_id,
+        "catalog_id": catalog_id
+    }
+
+    parsed_data = {key: Template(value).substitute(values) for key, value in data.items()}
+    url = parsed_data["classrooms"]
+    return get(url) # type: ignore
