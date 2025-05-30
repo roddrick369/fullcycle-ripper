@@ -1,4 +1,9 @@
 {
-    "standard": "https://portal.fullcycle.com.br/api/cursos/turma/$classroom_id/categoria/$course_id/list.json",
-    "fc4": "https://portal.fullcycle.com.br/api/learning_paths/categories/$course_id/classrooms/$classroom_id"
+    "courses": "https://portal.fullcycle.com.br/api/cursos/my.json",
+    "learning_paths": {
+        "standard": "https://portal.fullcycle.com.br/api/cursos/turma/$classroom_id/categoria/$course_id/list.json",
+        "fc4": "https://portal.fullcycle.com.br/api/learning_paths/categories/$course_id/classrooms/$classroom_id"
+    },
+    "classrooms": "https://portal.fullcycle.com.br/api/learning_paths/$catalog_id/classrooms/$classroom_id",
+    "chapters": "https://portal.fullcycle.com.br/api/cursos/turma/$classroom_id/curso/$chapter_list_id/capitulos.json?expand_conteudos=1"
 }
