@@ -32,10 +32,9 @@ def main():
                     course_id = courses[course_index]['category']['id']
                     classroom_id = courses[course_index]['classroom']['id']
                     learning_paths = get_learning_paths(course_id, classroom_id)
-                    if course_id == 215:
-                        print(learning_paths["learning_paths"])
-                    else:
-                        print(learning_paths)
+                    if course_id != 215:
+                        learning_paths = {"learning_paths": learning_paths}
+                    print(learning_paths["learning_paths"])
                     break
                 else:
                     print(f"Please enter a number between 1 and {counter}.")
