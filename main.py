@@ -1,5 +1,5 @@
 from platforms.login import login
-from platforms.api import get_courses, get_learning_paths
+from platforms.api import get_courses, get_learning_paths, get_classrooms
 from clear_screen import clear
 
 def main():
@@ -42,6 +42,13 @@ def main():
                 print("Invalid input. Please enter a valid number.")
     except Exception as e:
         print(f"An error occurred: {e}")
+
+    if course_id == 215: # type: ignore
+        for catalog in learning_paths["learning_paths"]: # type: ignore
+            catalog_id = catalog["id"]
+            classrooms = get_classrooms(catalog_id, classroom_id) # type: ignore
+            print(classrooms)
+    
 
 if __name__ == "__main__":
     main()
