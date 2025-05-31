@@ -22,12 +22,13 @@ def get_learning_paths(course_id: int, classroom_id: int) -> dict:
     url = parsed_data["fc4"] if course_id == 215 else parsed_data["standard"] # type: ignore
     return get(url)  # type: ignore
 
-def get_catalog(catalog_id: int, classroom_id: int) -> dict:
+def get_classrooms(catalog_id: int, classroom_id: int) -> dict:
     values = {
         "classroom_id": classroom_id,
         "catalog_id": catalog_id
     }
 
-    parsed_data = {key: Template(value).substitute(values) for key, value in data.items()}
-    url = parsed_data["classrooms"]
+    parsed_data = Template(data["classrooms"]).substitute(values)
+    url = parsed_data
+    print(parsed_data)
     return get(url) # type: ignore
