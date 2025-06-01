@@ -1,5 +1,5 @@
 from platforms.login import login
-from platforms.api import get_courses, get_learning_paths, get_classrooms
+from platforms.api import get_courses, get_learning_paths, get_classrooms, get_modules
 from clear_screen import clear
 
 def main():
@@ -34,7 +34,7 @@ def main():
                     learning_paths = get_learning_paths(course_id, classroom_id)
                     if course_id != 215:
                         learning_paths = {"learning_paths": learning_paths}
-                    print(learning_paths["learning_paths"])
+                    #print(learning_paths["learning_paths"])
                     break
                 else:
                     print(f"Please enter a number between 1 and {counter}.")
@@ -47,8 +47,22 @@ def main():
         for catalog in learning_paths["learning_paths"]: # type: ignore
             catalog_id = catalog["id"]
             classrooms = get_classrooms(catalog_id, classroom_id) # type: ignore
-            print(classrooms)
-    
 
+            for chapter in classrooms["courses"]:
+                chapter_id = chapter["id"]
+                modules = get_modules(chapter_id, classroom_id) # type: ignore
+
+                print(modules["content"][:10])
+    else:
+        for catalog in learning_paths["learning_paths"]: # type: ignore
+            catalog_id = catalog["id"]
+            print(f"id: {catalog_id}, nome: {catalog["nome"]}")
+
+            if catalog["total_conteudo"] > 0:
+                modules = get_modules(catalog_id, classroom_id) # type: ignore
+                print(modules["content"][:10])
+            else:
+                pass
+    
 if __name__ == "__main__":
     main()
