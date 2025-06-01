@@ -32,3 +32,12 @@ def get_classrooms(catalog_id: int, classroom_id: int) -> dict:
     url = parsed_data
     print(parsed_data)
     return get(url) # type: ignore
+
+def get_modules(chapter_id: int, classroom_id: int) -> dict:
+    values = {
+        "classroom_id": classroom_id,
+        "chapter_list_id": chapter_id
+    }
+    parsed_data = Template(data["modules"]).substitute(values)
+    url = parsed_data
+    return get(url) #type: ignore
