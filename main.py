@@ -52,7 +52,7 @@ def main():
                 chapter_id = chapter["id"]
                 modules = get_modules(chapter_id, classroom_id) # type: ignore
 
-                print(modules["content"][:10])
+                print(modules["content"])
     else:
         for catalog in learning_paths["learning_paths"]: # type: ignore
             catalog_id = catalog["id"]
@@ -60,9 +60,8 @@ def main():
 
             if catalog["total_conteudo"] > 0:
                 modules = get_modules(catalog_id, classroom_id) # type: ignore
-                print(modules["content"][:10])
-            else:
-                pass
+                print(modules["content"][:40]) # type: ignore
+            
     
 if __name__ == "__main__":
     main()
