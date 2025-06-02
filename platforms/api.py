@@ -2,6 +2,9 @@ import json
 from string import Template
 import os
 from utils.http_client import get
+from utils.json_extract import  decode
+
+module_list = os.path.join('result_module-list.json')
 
 endpoints_path = os.path.join('utils', 'endpoints.json')
 
@@ -40,4 +43,10 @@ def get_modules(chapter_id: int, classroom_id: int) -> dict:
     }
     parsed_data = Template(data["modules"]).substitute(values)
     url = parsed_data
-    return get(url) #type: ignore
+    encoded_res =  get(url) #type: ignore
+    res = decode(encoded_res["content"]) # type: ignore
+    decompressed_dict = json.loads(rf'''{{"content": {res}}}''')
+    with open(module_list, 'a', encoding='utf-8') as file:
+        json.dump(res, file, ensure_ascii=False, indent=2) # type: ignore
+        
+    return {"content": res}
