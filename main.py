@@ -1,13 +1,20 @@
 from platforms.login import login
 from platforms.api import get_courses, get_learning_paths, get_classrooms, get_modules
 from clear_screen import clear
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 def main():
-    username = input("Enter your email: ")
-    password = input("Enter your password: ")
+    # username = input("Enter your email: ")
+    # password = input("Enter your password: ")
+
+    username = os.getenv('EMAIL')
+    password = os.getenv('PASSWORD')
 
     try:
-        token = login(username, password)
+        token = login(username, password) # type: ignore
 
         courses = get_courses()
         clear()
